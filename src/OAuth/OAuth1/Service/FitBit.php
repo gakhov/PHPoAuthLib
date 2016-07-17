@@ -11,7 +11,7 @@ use OAuth\Common\Http\Uri\UriInterface;
 use OAuth\Common\Storage\TokenStorageInterface;
 use OAuth\Common\Http\Client\ClientInterface;
 
-class FitBit extends AbstractService
+class FitBitDeprecated extends AbstractService
 {
     public function __construct(
         CredentialsInterface $credentials,
