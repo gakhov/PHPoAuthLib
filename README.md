@@ -47,7 +47,7 @@ Included service implementations
 - OAuth1
     - BitBucket
     - Etsy
-    - FitBit
+    - FitBit (deprecated)
     - Flickr
     - Scoop.it!
     - Tumblr
@@ -61,6 +61,7 @@ Included service implementations
     - Dailymotion
     - Dropbox
     - Facebook
+    - FitBit
     - Foursquare
     - GitHub
     - Google
