@@ -67,7 +67,7 @@ class FitBit extends AbstractService
         $url = clone $this->getAuthorizationEndpoint();
         foreach ($parameters as $key => $val) {
             $url->addToQuery($key, $val);
-        }
+        }        
 
         return $url;
     }
@@ -103,8 +103,8 @@ class FitBit extends AbstractService
 
         if (null === $data || !is_array($data)) {
             throw new TokenResponseException('Unable to parse response.');
-        } elseif (isset($data['error'])) {
-            throw new TokenResponseException('Error in retrieving token: "' . $data['error'] . '"');
+        } elseif (isset($data['errors'])) {
+            throw new TokenResponseException('Error in retrieving token: "' . $data['errors'][0]['message'] . '"');
         }
 
         $token = new StdOAuth2Token();
@@ -122,5 +122,21 @@ class FitBit extends AbstractService
         $token->setExtraParams($data);
 
         return $token;
+    }
+
+    protected function getExtraOAuthHeaders()
+    {
+        $basic = $this->credentials->getConsumerId() . ':' . $this->credentials->getConsumerSecret();
+        return array('Authorization' => 'Basic ' . base64_encode($basic));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function request($path, $method = 'GET', $body = null, array $extraHeaders = array())
+    {
+        $uri = new Uri($this->baseApiUri . $path);
+
+        return parent::request($uri, $method, $body, $extraHeaders);
     }
 }
